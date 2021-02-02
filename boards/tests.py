@@ -64,10 +64,11 @@ class BoardTopicsTests(TestCase):
         self.assertContains(response, 'href="{0}"'.format(new_topic_url))
 
 
-class NewTopicsTests(TestCase):
+class NewTopicTests(TestCase):
     # 创建⼀个测试中使⽤的 Board 实例
     def setUp(self):
         Board.objects.create(name='Django', description='Django board.')
+        User.objects.create_user(username='mike', email='mike@lucis.site', password='123')
 
     # 检查发给 view 的请求是否成功
     def test_new_topic_view_success_status_code(self):
@@ -93,18 +94,11 @@ class NewTopicsTests(TestCase):
         response = self.client.get(new_topic_url)
         self.assertContains(response, 'href="{0}"'.format(board_topics_url))
 
-
-class NewTopicTests(TestCase):
-    # 创建⼀个测试中使⽤的 Board 实例
-    def setUp(self):
-        Board.objects.create(name='Django', description='Django board.')
-        User.objects.create_user(username='mike', email='mike@lucis.site', password='123')
-
     # CSRF Token 预留
     def test_csrf(self):
         url = reverse('new_topic', kwargs={'pk': 1})
         response = self.client.get(url)
-        self.assertContains(response, "csrfmiddlewaretoken")
+        self.assertContains(response, 'csrfmiddlewaretoken')
 
     # 发送有效的数据并检查视图函数是否创建了 Topic 和 Post 实例
     def test_new_topic_valid_post_data(self):
