@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 from django.test import TestCase
 from .views import home, board_topics, new_topic
 from .models import Board, Topic, Post
+from .froms import NewTopicForm
 
 # Create your tests here.
 
@@ -111,11 +112,13 @@ class NewTopicTests(TestCase):
         self.assertTrue(Topic.objects.exists())
         self.assertTrue(Post.objects.exists())
 
-    # 发送⼀个空字典来检查应⽤的⾏为
+    # 发送⼀个空字典来检查应⽤的⾏为,确保数据无效时表单会显示错误
     def test_new_topic_invalid_post_data(self):
         url = reverse('new_topic', kwargs={'pk': 1})
         response = self.client.post(url, {})
+        form = response.context.get('form')
         self.assertEquals(response.status_code, 200)
+        self.assertTrue(form.errors)
 
     # 类似于上⼀个测试，但是这次我们发送⼀些数据。预期应⽤程序会验证并且拒绝空的 subject 和 message
     def test_new_topic_invalid_post_data_empty_fields(self):
@@ -128,3 +131,10 @@ class NewTopicTests(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertFalse(Topic.objects.exists())
         self.assertFalse(Post.objects.exists())
+
+    # 抓取上下文表单实例，检查它是否为一个 NewTopicForm
+    def test_contains_from(self):
+        url = reverse('new_topic', kwargs={'pk': 1})
+        response = self.client.get(url)
+        form = response.context.get('form')
+        self.assertIsInstance(form, NewTopicForm)
