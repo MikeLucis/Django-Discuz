@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Board, Post
 from .froms import NewTopicForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -17,6 +18,7 @@ def board_topics(request, pk):
     return render(request, 'topics.html', {'board': board})
 
 
+@login_required
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
     user = User.objects.first()  # TODO: 获取当前登录的用户
