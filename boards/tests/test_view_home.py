@@ -1,6 +1,6 @@
 from django.test.testcases import TestCase
 from django.urls import reverse, resolve
-from ..views import home
+from ..views import BoardListView
 from ..models import Board
 
 
@@ -21,7 +21,7 @@ class HomeTests(TestCase):
     # 将浏览器发起请求的URL与urls.py模块中列出的URL进⾏匹配
     def test_home_url_resolves_home_view(self):
         view = resolve('/')
-        self.assertEquals(view.func, home)
+        self.assertEquals(view.func.view_class, BoardListView)
 
     # 使⽤ assertContains ⽅法来测试 response 主体部分是否包含href
     def test_home_view_contains_link_to_topics_page(self):

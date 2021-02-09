@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.db.models import Count
 
@@ -11,10 +11,16 @@ from .forms import NewTopicForm, PostForm
 
 # Create your views here.
 
+# 基于 GCBV 创建
+class BoardListView(ListView):
+    model = Board
+    context_object_name = 'boards'
+    template_name = 'home.html'
 
-def home(request):
-    boards = Board.objects.all()  # new一个对象-board类下所有对象
-    return render(request, 'home.html', {'boards': boards})
+
+# def home(request):
+#     boards = Board.objects.all()  # new一个对象-board类下所有对象
+#     return render(request, 'home.html', {'boards': boards})
 
 
 def board_topics(request, pk):
