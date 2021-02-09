@@ -25,6 +25,7 @@ class Topic(models.Model):
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics', on_delete=models.SET_NULL, null=True)
     starter = models.ForeignKey(User, related_name='topics', on_delete=models.SET_NULL, null=True)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.subject
