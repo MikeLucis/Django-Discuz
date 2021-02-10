@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView, ListView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.db.models import Count
 
@@ -23,10 +24,41 @@ class BoardListView(ListView):
 #     return render(request, 'home.html', {'boards': boards})
 
 
-def board_topics(request, pk):
-    board = get_object_or_404(Board, pk=pk)
-    topics = board.topics.order_by('-last_updated').annotate(replies=Count('post') - 1)
-    return render(request, 'topics.html', {'board': board, 'topics': topics})
+# 基于 GCBV 创建
+class TopicListView(ListView):
+    model = Topic
+    context_object_name = 'topics'
+    template_name = 'topics.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        kwargs['board'] = self.board
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('post') - 1)
+        return queryset
+
+
+# def board_topics(request, pk):
+#     board = get_object_or_404(Board, pk=pk)
+#     queryset = board.topics.order_by('-last_updated').annotate(replies=Count('post') - 1)
+#     page = request.GET.get('page', 1)
+#
+#     paginator = Paginator(queryset, 20)
+#
+#     try:
+#         topics = paginator.page(page)
+#     except PageNotAnInteger:
+#         # 返回第一页
+#         topics = paginator.page(1)
+#     except EmptyPage:
+#         # 当用户是否尝试添加页码
+#         # 若在url中，则回退到最后一页
+#         topics = paginator.page(paginator.num_pages)
+#
+#     return render(request, 'topics.html', {'board': board, 'topics': topics})
 
 
 @login_required

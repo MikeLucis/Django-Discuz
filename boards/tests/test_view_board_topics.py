@@ -1,6 +1,6 @@
 from django.test.testcases import TestCase
 from django.urls import resolve, reverse
-from ..views import board_topics
+from ..views import TopicListView
 from ..models import Board
 
 
@@ -24,7 +24,7 @@ class BoardTopicsTests(TestCase):
     # 测试 Django 是否使⽤了正确的视图函数去渲染 topics
     def test_board_topics_url_resolves_board_topics_view(self):
         view = resolve('/boards/1/')
-        self.assertEquals(view.func, board_topics)
+        self.assertEquals(view.func.view_class, TopicListView)
 
     # 使⽤ assertContains ⽅法来测试 response 主体部分是否包含href, 确保 view 包含所需的导航链接
     def test_board_topics_view_contains_navigation_links(self):
