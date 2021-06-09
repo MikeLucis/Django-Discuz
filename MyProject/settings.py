@@ -13,9 +13,9 @@ import dj_database_url
 import os
 from pathlib import Path
 
-import pyodbc
-import pytds
-import sql_server
+# import pyodbc
+# import pytds
+# import sql_server
 from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
