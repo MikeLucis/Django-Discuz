@@ -1,15 +1,15 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, F
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import UpdateView, ListView
-from django.utils import timezone
-from django.db.models import Count, F
-from django.urls import reverse
-from django.http import JsonResponse
 
-from .models import Board, Post, Topic, Banner, SHOW_BANNER_COUNT
 from .forms import NewTopicForm, PostForm, BannerForm
+from .models import Board, Post, Topic, Banner, Tag, SHOW_BANNER_COUNT
 
 
 # Create your views here.
@@ -19,6 +19,17 @@ class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'home.html'
+
+
+class HomeTagsView(View):
+    def get(self, request):
+        tags = Tag.objects.values('id', 'name')
+        count = len(tags)
+        ctx = {
+            "count": count,
+            "data": {"tags": list(tags)}
+        }
+        return JsonResponse(data=ctx)
 
 
 # def home(request):

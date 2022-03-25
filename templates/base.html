@@ -46,7 +46,7 @@
     </nav>
     <div class="container main-contain">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-8 main-row">
                 <!-- banner start -->
                 <div class="banner">
                     <ul class="pic">
@@ -63,6 +63,15 @@
                     </ul>
                 </div>
                 <!-- banner end -->
+                <!--  news-nav start-->
+                {# TODO Tag反查话题 #}
+                <nav class="news-nav my-4">
+                    <ul class="clearfix">
+                        <li class="active tag-point"><a href="javascript:void(0)">最新话题</a></li>
+                        </li>
+                    </ul>
+                </nav>
+                <!--  news-nav end -->
                 <ol class="breadcrumb my-4">
                     {% block breadcrumb %}
                     {% endblock %}
@@ -153,7 +162,7 @@
 <!-- footer end -->
 <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/banner.js' %}"></script>
+<script src="{% static 'js/module.js' %}"></script>
 <script>
     {#const swiper = new Swiper('#swiper');#}
 </script>

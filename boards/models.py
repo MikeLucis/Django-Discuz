@@ -1,11 +1,10 @@
-import uuid
-
-from django.db import models
-from django.contrib.auth.models import User
-from django.utils.text import Truncator
-from django.utils.html import mark_safe
-from markdown import markdown
 import math
+
+from django.contrib.auth.models import User
+from django.db import models
+from django.utils.html import mark_safe
+from django.utils.text import Truncator
+from markdown import markdown
 
 SHOW_BANNER_COUNT = 5
 
@@ -32,6 +31,8 @@ class Topic(models.Model):
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics', on_delete=models.SET_NULL, null=True)
     starter = models.ForeignKey(User, related_name='topics', on_delete=models.SET_NULL, null=True)
+    # 定义分类标签的外键字段, 一般外键字段定义在`一对多`中多的一方
+    tag = models.ForeignKey('Tag', on_delete=models.SET_NULL, null=True)
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -85,3 +86,32 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.topic
+
+
+class Tag(models.Model):
+    name = models.CharField('标签名', max_length=64, help_text='标签名')
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    update_time = models.DateTimeField('更新时间', auto_now=True)
+
+    class Meta:
+        ordering = ['-update_time', '-id']  # 排序
+        verbose_name = "话题标签"  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称
+
+    def __str__(self):
+        # str使类实例直接被打印时也会有返回值
+        return self.name
+
+
+class HotTopics(models.Model):
+    topic = models.OneToOneField('Topic', on_delete=models.CASCADE)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+    update_time = models.DateTimeField('更新时间', auto_now=True)
+
+    class Meta:
+        ordering = ['-update_time', '-id']  # 排序
+        verbose_name = "热门话题"  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称
+
+    def __str__(self):
+        return '<热门话题{}>'.format(self.id)

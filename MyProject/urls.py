@@ -13,12 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
 from django.conf.urls import url
-from django.views.static import serve
-
+from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.urls import path
+from django.views.static import serve
 
 from MyProject import settings
 from accounts import views as account_views
@@ -74,6 +73,7 @@ urlpatterns = [
         views.PostUpdateView.as_view(), name='edit_post'),
     url(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('boards/banners/', views.TopicBannerView.as_view(), name='topics_banner'),
+    path('tags/', views.HomeTagsView.as_view(), name='tags'),
     path('admin/', admin.site.urls),
 
 ]
