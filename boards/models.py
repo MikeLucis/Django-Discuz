@@ -1,9 +1,13 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import Truncator
 from django.utils.html import mark_safe
 from markdown import markdown
 import math
+
+SHOW_BANNER_COUNT = 5
 
 
 # Create your models here.
@@ -67,3 +71,17 @@ class Post(models.Model):
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
+
+
+# def custom_path(instance, filename):
+#     ext = filename.split('.')[-1]
+#     filename = '{}.{}'.format(uuid.uuid4().hex[:10], ext)
+#     return filename
+
+
+class Banner(models.Model):
+    topic = models.ForeignKey(Topic, null=False, on_delete=models.CASCADE, related_name="Topic")
+    image_url = models.ImageField(null=True, blank=True, upload_to="img")
+
+    def __str__(self):
+        return self.topic

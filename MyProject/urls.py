@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.views.static import serve
 
 from django.contrib.auth import views as auth_views
+
+from MyProject import settings
 from accounts import views as account_views
 from boards import views
 
@@ -63,13 +66,14 @@ urlpatterns = [
         auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
         name='password_change_done'),
     url(r'^settings/account/$', account_views.UserUpdateView.as_view(), name='my_account'),
-
     url(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),
     url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$',
         views.PostUpdateView.as_view(), name='edit_post'),
+    url(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('boards/banners/', views.TopicBannerView.as_view(), name='topics_banner'),
     path('admin/', admin.site.urls),
 
 ]

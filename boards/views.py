@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.generic import UpdateView, ListView
 from django.utils import timezone
-from django.db.models import Count
+from django.db.models import Count, F
 from django.urls import reverse
+from django.http import JsonResponse
 
-from .models import Board, Post, Topic
-from .forms import NewTopicForm, PostForm
+from .models import Board, Post, Topic, Banner, SHOW_BANNER_COUNT
+from .forms import NewTopicForm, PostForm, BannerForm
 
 
 # Create your views here.
@@ -66,11 +68,16 @@ def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
     if request.method == 'POST':
         form = NewTopicForm(request.POST)
+        banner = BannerForm(request.POST, request.FILES)
         if form.is_valid():
             topic = form.save(commit=False)
             topic.board = board
             topic.starter = request.user
             topic.save()
+            if banner.is_valid():
+                image = banner.cleaned_data['image_url']
+                banner = Banner.objects.create(topic_id=topic.id, image_url=image)
+                banner.save()
             post = Post.objects.create(
                 message=form.cleaned_data.get('message'),
                 topic=topic,
@@ -78,8 +85,9 @@ def new_topic(request, pk):
             )
             return redirect('topic_posts', pk=pk, topic_pk=topic.pk)
     else:
+        banner = BannerForm()
         form = NewTopicForm()
-    return render(request, 'new_topic.html', {'board': board, 'form': form})
+    return render(request, 'new_topic.html', {'board': board, 'form': form, 'banner': banner})
 
 
 # 显示回复条数
@@ -160,3 +168,22 @@ class PostUpdateView(UpdateView):
         post.updated_at = timezone.now()
         post.save()
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
+
+
+class TopicBannerView(View):
+    """
+    轮播图
+    GET /news/banners/
+    """
+
+    def get(self, request):
+        # 读取到图片,文章id和标题, 由于标题是外键, 发送json的话就需要重命名
+        banner = Banner.objects.values('image_url', 'topic_id').annotate(
+            topic_title=F('topic__subject'), board_id=F('topic__board__id'))[:SHOW_BANNER_COUNT]
+        count = len(banner)
+        ctx = {
+            "count": count,
+            "errmsg": "OK",
+            "data": {'banners': list(banner)}
+        }
+        return JsonResponse(data=ctx)
