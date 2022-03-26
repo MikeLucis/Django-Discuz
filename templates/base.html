@@ -51,7 +51,7 @@
                 <div class="banner">
                     <ul class="pic">
                         <!--淡入淡出banner-->
-
+                        {#TODO 使用Bootstrap原生组件#}
                     </ul>
                     <a href="javascript:void(0);" class="btn prev">
                         <i class="PyWhich py-arrow-left"></i></a>
@@ -108,6 +108,18 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="side-search clearfix">
+                            <form method="GET" action="/search/">
+                                <div class="form-group">
+                                    <label class="activities-title" for="SearchInput">搜索话题：</label>
+                                    <input class="form-control mb-2" id="SearchInput" type="search"
+                                           placeholder="按回车发起检索"
+                                           name="sec"
+                                           required>
+                                </div>
+                                <input style="display: none;" class="btn btn-primary" type="submit" value="Submit">
+                            </form>
                         </div>
                         <div class="side-attention clearfix">
                             <h3 class="attention-title">关注我</h3>

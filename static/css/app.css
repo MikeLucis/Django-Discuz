@@ -258,13 +258,21 @@ a {
 }
 
 /* ==== side-course end ==== */
-/* ==== side-gift start ==== */
-.side .side-gift {
-    display: block;
-    height: 130px;
+/* ==== side-search start ==== */
+.side .side-search {
+    height: 100px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
 }
 
-/* ==== side-gift end ==== */
+.side .side-search .activities-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* ==== side-search end ==== */
 /* ==== side-attention start ==== */
 .side .side-attention {
     height: 261px;

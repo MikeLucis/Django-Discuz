@@ -38,6 +38,27 @@ class HomeTagsView(View):
 #     return render(request, 'home.html', {'boards': boards})
 
 
+class SearchListView(ListView):
+    model = Topic
+    context_object_name = 'results'
+    template_name = 'topic_list.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        ctx = {
+            'sec': self.sec,
+            'replies': self.replies
+        }
+        kwargs['page'] = ctx
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        self.sec = dict(self.request.GET).get('sec')[0]
+        queryset = Topic.objects.filter(subject__icontains=self.sec)
+        self.replies = len(queryset)
+        return queryset
+
+
 # 基于 GCBV 创建
 class TopicListView(ListView):
     model = Topic
