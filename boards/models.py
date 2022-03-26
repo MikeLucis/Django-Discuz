@@ -7,6 +7,7 @@ from django.utils.text import Truncator
 from markdown import markdown
 
 SHOW_BANNER_COUNT = 5
+SHOW_HOTTOPIC_COUNT = 4
 
 
 # Create your models here.
@@ -81,7 +82,7 @@ class Post(models.Model):
 
 
 class Banner(models.Model):
-    topic = models.ForeignKey(Topic, null=False, on_delete=models.CASCADE, related_name="Topic")
+    topic = models.ForeignKey(Topic, null=False, on_delete=models.CASCADE, related_name="banner")
     image_url = models.ImageField(null=True, blank=True, upload_to="img")
 
     def __str__(self):

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, F
+from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -9,7 +10,7 @@ from django.views import View
 from django.views.generic import UpdateView, ListView
 
 from .forms import NewTopicForm, PostForm, BannerForm
-from .models import Board, Post, Topic, Banner, Tag, SHOW_BANNER_COUNT
+from .models import Board, Post, Topic, Banner, Tag, HotTopics, SHOW_BANNER_COUNT, SHOW_HOTTOPIC_COUNT
 
 
 # Create your views here.
@@ -197,4 +198,22 @@ class TopicBannerView(View):
             "errmsg": "OK",
             "data": {'banners': list(banner)}
         }
+        return JsonResponse(data=ctx)
+
+
+class HotTopicView(View):
+    def get(self, request):
+        data = []
+        hot_topics = HotTopics.objects.all().order_by('-topic__views')[:SHOW_HOTTOPIC_COUNT]
+        count = len(hot_topics)
+        for tp in hot_topics:
+            tp_item = model_to_dict(tp.topic, fields=['id', 'subject', 'board'])
+            tp_item['image_url'] = Banner.objects.get(topic_id=tp.topic.id).image_url.url
+            data.append(tp_item)
+
+        ctx = {
+            'count': count,
+            'data': {'topics': data}
+        }
+
         return JsonResponse(data=ctx)

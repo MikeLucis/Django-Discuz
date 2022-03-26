@@ -73,7 +73,8 @@ urlpatterns = [
         views.PostUpdateView.as_view(), name='edit_post'),
     url(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('boards/banners/', views.TopicBannerView.as_view(), name='topics_banner'),
-    path('tags/', views.HomeTagsView.as_view(), name='tags'),
+    path('boards/hotopics/', views.HotTopicView.as_view(), name='hots_topics'),
+    path('boards/tags/', views.HomeTagsView.as_view(), name='tags'),
     path('admin/', admin.site.urls),
 
 ]
