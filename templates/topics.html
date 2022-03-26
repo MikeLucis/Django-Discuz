@@ -32,6 +32,10 @@
             <tr>
                 <td>
                     <p class="mb-0">
+                        <span>
+                            <a href="/search/?tag={{ topic.tag.all|first }}"
+                               class="badge badge-primary">{{ topic.tag.all|first }}</a>
+                        </span>
                         <a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a>
                     </p>
                     <small class="text-muted">

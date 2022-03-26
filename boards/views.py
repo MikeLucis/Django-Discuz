@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, F
+from django.db.models import Count, F, QuerySet
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,9 +8,10 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import UpdateView, ListView
+from taggit.models import Tag as Taggit
 
 from .forms import NewTopicForm, PostForm, BannerForm
-from .models import Board, Post, Topic, Banner, Tag, HotTopics, SHOW_BANNER_COUNT, SHOW_HOTTOPIC_COUNT
+from .models import Board, Post, Topic, Banner, HotTopics, SHOW_BANNER_COUNT, SHOW_HOTTOPIC_COUNT
 
 
 # Create your views here.
@@ -24,8 +25,9 @@ class BoardListView(ListView):
 
 class HomeTagsView(View):
     def get(self, request):
-        tags = Tag.objects.values('id', 'name')
+        tags = Taggit.objects.values('id', 'name')
         count = len(tags)
+
         ctx = {
             "count": count,
             "data": {"tags": list(tags)}
@@ -45,17 +47,31 @@ class SearchListView(ListView):
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-        ctx = {
-            'sec': self.sec,
-            'replies': self.replies
-        }
+        ctx = {}
+        if self.sec:
+            ctx['goal'] = self.sec
+            ctx['count'] = self.count
+        if self.tag:
+            ctx['goal'] = self.tag
+            ctx['count'] = self.count
+
         kwargs['page'] = ctx
         return super().get_context_data(**kwargs)
 
     def get_queryset(self):
-        self.sec = dict(self.request.GET).get('sec')[0]
-        queryset = Topic.objects.filter(subject__icontains=self.sec)
-        self.replies = len(queryset)
+        self.sec = self.request.GET.get('sec')
+        self.tag = self.request.GET.get('tag')
+
+        topic_list = Topic.objects.all()
+
+        if self.sec:
+            queryset = topic_list.filter(subject__icontains=self.sec)
+            self.count = len(queryset)
+        elif self.tag:
+            queryset = topic_list.filter(tag__name__in=[self.tag])
+            self.count = len(queryset)
+        else:
+            queryset = QuerySet()
         return queryset
 
 
@@ -107,6 +123,7 @@ def new_topic(request, pk):
             topic.board = board
             topic.starter = request.user
             topic.save()
+            form.save_m2m()
             if banner.is_valid():
                 image = banner.cleaned_data['image_url']
                 banner = Banner.objects.create(topic_id=topic.id, image_url=image)

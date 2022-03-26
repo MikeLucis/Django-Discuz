@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Topic, Post, Banner
 
 
@@ -11,7 +12,7 @@ class NewTopicForm(forms.ModelForm):
 
     class Meta:
         model = Topic
-        fields = ['subject', 'message']
+        fields = ['subject', 'message', 'tag']
 
 
 class PostForm(forms.ModelForm):
@@ -21,7 +22,7 @@ class PostForm(forms.ModelForm):
 
 
 class BannerForm(forms.Form):
-    image_url = forms.ImageField(label='MainPhoto', widget=forms.FileInput(attrs={'class': 'btn'}))
+    image_url = forms.ImageField(label='MainPhoto', required=False, widget=forms.FileInput(attrs={'class': 'btn'}))
 
     class Meta:
         model = Banner

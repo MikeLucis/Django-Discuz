@@ -108,7 +108,7 @@ $(function () {
             if (res.count) {
                 let content = "";
                 res.data.tags.forEach((item, index) => {
-                    content = `<li><a href="javascript:void(0)" data-id="${item.id}">${item.name}</a></li>`;
+                    content = `<li><a href="/search/?tag=${item.name}" data-id="${item.id}">${item.name}</a></li>`;
                     $(".tag-point").after(content)
                 })
             }

@@ -3,12 +3,12 @@
 {% load humanize %}
 
 {% block title %}
-    {{ page.sec }} - 搜索全文
+    {{ page.goal }} - 搜索全文
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item">搜索结果（共{{ page.replies }}条）</li>
-    <li class="breadcrumb-item active">{{ page.sec }}</li>
+    <li class="breadcrumb-item">搜索结果（共{{ page.count }}条）</li>
+    <li class="breadcrumb-item active">{{ page.goal }}</li>
 {% endblock %}
 
 {% block content %}
@@ -27,6 +27,10 @@
             <tr>
                 <td>
                     <p class="mb-0">
+                        <span>
+                            <a href="/search/?tag={{ topic.tag.all|first }}"
+                               class="badge badge-primary">{{ topic.tag.all|first }}</a>
+                        </span>
                         <a href="{% url 'topic_posts' topic.board.id topic.id %}">{{ topic.subject }}</a>
                     </p>
                     <small class="text-muted">
