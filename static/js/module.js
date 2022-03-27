@@ -107,7 +107,7 @@ $(function () {
         }).done((res) => {
             if (res.count) {
                 let content = "";
-                res.data.tags.forEach((item, index) => {
+                res.data.tags.forEach((item) => {
                     content = `<li><a href="/search/?tag=${item.name}" data-id="${item.id}">${item.name}</a></li>`;
                     $(".tag-point").after(content)
                 })
@@ -127,7 +127,7 @@ $(function () {
         }).done((res) => {
             if (res.count) {
                 let content = "";
-                res.data.topics.forEach((item, index) => {
+                res.data.topics.forEach((item) => {
                     content = `<li><a href="/boards/${item.board}/topics/${item.id}/" target="_blank"><div class="recommend-thumbnail"><img src="${item.image_url}" alt="${item.subject}"></div><p class="info">${item.subject}</p></a></li>`;
                     $(".Hotopic-point").append(content);
                 })

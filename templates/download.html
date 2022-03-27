@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    文档下载 - Django Boards
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+    <li class="breadcrumb-item active">文档下载</li>
+{% endblock %}
+
+{% block content %}
+    <div class="down-point">
+        {% for doc in docs %}
+            <div class="col-sm-12">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 media">
+                            <img class="card-img m-auto align-self-center" src="{{ doc.image_url }}"
+                                 alt="{{ doc.title }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ doc.title }}</h5>
+                                <p class="card-text">{{ doc.desc }}</p>
+                                <p class="card-text"><small class="text-muted">{{ doc.created_at|naturaltime }}</small>
+                                </p>
+                                <a href="{{ doc.file_url }}" class="btn btn-primary">下载</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

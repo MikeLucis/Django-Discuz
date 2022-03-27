@@ -8,7 +8,7 @@
     <title>{% block title %}Django Boards{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_684044_un7umbuwwfp.css">
+    <link rel="stylesheet" href="{% static 'css/iconfont.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
     {% block stylesheet %}{% endblock %}
 </head>
@@ -22,6 +22,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="{% url 'download' %}" class="nav-link">下载中心</a>
+                    </li>
+                </ul>
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
@@ -67,7 +75,6 @@
                 <nav class="news-nav my-4">
                     <ul class="clearfix">
                         <li class="active tag-point"><a href="javascript:void(0)">最新话题</a></li>
-                        </li>
                     </ul>
                 </nav>
                 <!--  news-nav end -->
@@ -109,7 +116,7 @@
                             </ul>
                         </div>
                         <div class="side-search clearfix">
-                            <form method="GET" action="/search/">
+                            <form method="GET" action="{% url 'search' %}">
                                 <div class="form-group">
                                     <label class="activities-title" for="SearchInput">搜索话题：</label>
                                     <input class="form-control mb-2" id="SearchInput" type="search"
@@ -124,15 +131,15 @@
                             <h3 class="attention-title">关注我</h3>
                             <ul class="side-attention-address">
                                 <li>
-                                    <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-GitHub"></i>makesths</a>
+                                    <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-GitHub"></i>MikeLucis</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-zhihu"
-                                                                                     style="color:rgb(0, 108, 226);"></i>makesths</a>
+                                                                                     style="color:rgb(0, 108, 226);"></i>MikeLucis</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-weibo"
-                                                                                     style="color:rgb(245,92,110);"></i>makesths</a>
+                                                                                     style="color:rgb(245,92,110);"></i>MikeLucis</a>
                                 </li>
                             </ul>
                             <div class="side-attention-qr">
@@ -165,15 +172,15 @@
 						<a href="javascript:void(0)">人生苦短</a> |
 						<a href="javascript:void(0)">我用Python</a>
 					</span>
-                <span class="about-me">关于我: <i class="PyWhich py-wechat"></i> makesths</span>
+                <span class="about-me">关于我: <i class="PyWhich py-wechat"></i> MikeLucis</span>
             </p>
             <p class="bottom-content">
-                <span>地址： xxxx</span>
+                <span>地址： XXX</span>
                 <span>联系方式: <a href="tel:400-1567-315">12345678912</a></span>
             </p>
         </div>
         <p class="copyright-desc">
-            Copyright &copy; 2008 - 2019 xxx有限公司. All Rights Reserved
+            Copyright &copy; 2014 - 2022 XXX有限公司. All Rights Reserved.
         </p>
     </div>
 </footer>

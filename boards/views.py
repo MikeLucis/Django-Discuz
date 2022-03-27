@@ -11,7 +11,7 @@ from django.views.generic import UpdateView, ListView
 from taggit.models import Tag as Taggit
 
 from .forms import NewTopicForm, PostForm, BannerForm
-from .models import Board, Post, Topic, Banner, HotTopics, SHOW_BANNER_COUNT, SHOW_HOTTOPIC_COUNT
+from .models import Board, Post, Topic, DocFile, Banner, HotTopics, SHOW_BANNER_COUNT, SHOW_HOTTOPIC_COUNT
 
 
 # Create your views here.
@@ -72,6 +72,19 @@ class SearchListView(ListView):
             self.count = len(queryset)
         else:
             queryset = QuerySet()
+        return queryset
+
+
+class DownloadDocListView(ListView):
+    """
+    文档列表视图
+    """
+    model = DocFile
+    template_name = 'download.html'
+    context_object_name = 'docs'
+
+    def get_queryset(self):
+        queryset = DocFile.objects.order_by('-created_at')
         return queryset
 
 

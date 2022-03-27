@@ -2,6 +2,7 @@ import math
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.utils.html import mark_safe
 from django.utils.text import Truncator
 from markdown import markdown
@@ -73,6 +74,27 @@ class Post(models.Model):
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
+
+
+class DocFile(models.Model):
+    """
+    文件模型
+    """
+    file_url = models.CharField('文件url', max_length=250, help_text='文件url')
+    file_name = models.CharField('文件名', max_length=48, help_text='文件名')
+    title = models.CharField('文件标题', max_length=150, help_text='文件标题')
+    desc = models.TextField('文件描述', help_text='文件描述')
+    image_url = models.CharField('封面图片url', max_length=250, help_text='封面图片url')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(null=True)
+
+    class Meta:
+        verbose_name = '文件表'  # admin 站点中显示的名称
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title
 
 
 # def custom_path(instance, filename):

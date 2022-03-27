@@ -75,6 +75,7 @@ urlpatterns = [
     path('boards/banners/', views.TopicBannerView.as_view(), name='topics_banner'),
     path('boards/hotopics/', views.HotTopicView.as_view(), name='hots_topics'),
     path('boards/tags/', views.HomeTagsView.as_view(), name='tags'),
+    path('boards/download/', views.DownloadDocListView.as_view(), name='download'),
     path('search/', views.SearchListView.as_view(), name='search'),
     path('admin/', admin.site.urls),
 
