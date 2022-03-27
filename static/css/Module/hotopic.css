@@ -1,0 +1,60 @@
+/* == recommendNews start  == */
+.Hotopic {
+    background: #fff;
+}
+
+.Hotopic .activities-title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 20px 0 0 20px;
+}
+
+.recommend-news {
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.recommend-news li {
+    width: 250px;
+    height: 179px;
+    position: relative;
+}
+
+.recommend-news li .recommend-thumbnail {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.recommend-news li .recommend-thumbnail img {
+    width: 100%;
+    height: 100%;
+    transition: all 300ms ease-out;
+}
+
+.recommend-news li .info {
+    height: 58px;
+    width: 100%;
+    line-height: 26px;
+    color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.recommend-news li:hover img {
+    transform: scale(1.2);
+    transition: all 300ms ease-in;
+}
+
+.recommend-news li:hover .info {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* == recommendNews end  == */

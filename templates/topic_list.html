@@ -1,14 +1,26 @@
 {% extends 'base.html' %}
 
 {% load humanize %}
+{% load static %}
 
 {% block title %}
     {{ page.goal }} - 搜索全文
 {% endblock %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/Module/banner.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Module/hotopic.css' %}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item">搜索结果（共{{ page.count }}条）</li>
     <li class="breadcrumb-item active">{{ page.goal }}</li>
+{% endblock %}
+
+{% block NewTags %}
+{% endblock %}
+
+{% block SideActive %}
 {% endblock %}
 
 {% block content %}
@@ -28,7 +40,7 @@
                 <td>
                     <p class="mb-0">
                         <span>
-                            <a href="/search/?tag={{ topic.tag.all|first }}"
+                            <a href="{% url 'search' %}?tag={{ topic.tag.all|first }}"
                                class="badge badge-primary">{{ topic.tag.all|first }}</a>
                         </span>
                         <a href="{% url 'topic_posts' topic.board.id topic.id %}">{{ topic.subject }}</a>
@@ -53,4 +65,9 @@
 
     {% include 'includes/pagination.html' %}
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/Module/banner.js' %}"></script>
+    <script src="{% static 'js/Module/hotopic.js' %}"></script>
 {% endblock %}

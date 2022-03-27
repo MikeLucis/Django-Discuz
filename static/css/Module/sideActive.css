@@ -1,0 +1,74 @@
+/* ==== side-activities start ==== */
+.side .side-activities {
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+
+.side .side-activities .activities-title {
+    font-size: 18px;
+    line-height: 60px;
+    padding: 0 20px;
+}
+
+.side .side-activities .activities-title a {
+    font-size: 14px;
+    float: right;
+    color: skyblue;
+}
+
+.side .side-activities .activities-img {
+    width: 320px;
+    height: 215px;
+    position: relative;
+    margin: 0 20px 20px;
+}
+
+.side-activities .activities-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.side-activities .activities-img .activities-tips {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.side-activities .activities-list {
+    padding: 0;
+}
+
+.side-activities .activities-list li a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+}
+
+.activities-list li .active-status {
+    padding: 2px 4px;
+    margin-right: 14px;
+}
+
+.activities-list li .active-start {
+    color: skyblue;
+    border: 1px solid skyblue;
+}
+
+.activities-list li .active-end {
+    color: #ddd;
+    border: 1px solid #ddd;
+}
+
+.side-activities .activities-list li:hover {
+    background: rgba(204, 204, 204, 0.22);
+}
+
+/* ==== side-activities end ==== */

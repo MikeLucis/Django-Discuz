@@ -16,8 +16,15 @@ SHOW_HOTTOPIC_COUNT = 4
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    description = models.CharField(max_length=100)
+    """
+    板块模型
+    """
+    name = models.CharField('板块名', max_length=30, unique=True, help_text='板块名')
+    description = models.CharField('板块描述', max_length=100, help_text='板块描述')
+
+    class Meta:
+        verbose_name = "板块"  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称
 
     def __str__(self):
         return self.name
@@ -30,12 +37,20 @@ class Board(models.Model):
 
 
 class Topic(models.Model):
-    subject = models.CharField(max_length=255)
+    """
+    话题模型
+    """
+    subject = models.CharField('话题主题', max_length=255, help_text='话题主题')
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics', on_delete=models.SET_NULL, null=True)
     starter = models.ForeignKey(User, related_name='topics', on_delete=models.SET_NULL, null=True)
+    # Taggit标签管理器
     tag = TaggableManager()
     views = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "话题"  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称
 
     def __str__(self):
         return self.subject
@@ -61,19 +76,26 @@ class Topic(models.Model):
 
 
 class Post(models.Model):
-    message = models.TextField(max_length=4000)
+    """
+    回复模型
+    """
+    message = models.TextField('回复消息', max_length=4000, help_text='回复消息')
     topic = models.ForeignKey(Topic, related_name='post', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, related_name='post', on_delete=models.SET_NULL, null=True)
     updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.SET_NULL)
 
+    class Meta:
+        verbose_name = "回复"  # 在admin站点中显示的名称
+        verbose_name_plural = verbose_name  # 显示的复数名称
+
     def __str__(self):
         truncated_message = Truncator(self.message)
         return truncated_message.chars(30)
 
     def get_message_as_markdown(self):
-        return mark_safe(markdown(self.message, safe_mode='escape'))
+        return mark_safe(markdown(self.message))
 
 
 class DocFile(models.Model):
@@ -90,17 +112,11 @@ class DocFile(models.Model):
     updated_at = models.DateTimeField(null=True)
 
     class Meta:
-        verbose_name = '文件表'  # admin 站点中显示的名称
+        verbose_name = '文件'  # admin 站点中显示的名称
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.title
-
-
-# def custom_path(instance, filename):
-#     ext = filename.split('.')[-1]
-#     filename = '{}.{}'.format(uuid.uuid4().hex[:10], ext)
-#     return filename
 
 
 class Banner(models.Model):

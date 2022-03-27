@@ -26,4 +26,3 @@ class BannerForm(forms.Form):
 
     class Meta:
         model = Banner
-    #     fields = ['image_url',]

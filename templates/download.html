@@ -7,9 +7,22 @@
     文档下载 - Django Boards
 {% endblock %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/Module/banner.css' %}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
     <li class="breadcrumb-item active">文档下载</li>
+{% endblock %}
+
+{% block NewTags %}
+{% endblock %}
+
+{% block SideActive %}
+{% endblock %}
+
+{% block Hotopic %}
 {% endblock %}
 
 {% block content %}
@@ -36,4 +49,8 @@
             </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/Module/banner.js' %}"></script>
 {% endblock %}

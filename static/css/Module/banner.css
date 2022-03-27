@@ -1,0 +1,82 @@
+/* ====== banner start ======*/
+.main-contain .banner {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.main-contain .banner .pic {
+    height: 100%;
+}
+
+.main-contain .banner .pic li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: none;
+}
+
+.banner .pic li a {
+    height: 100%;
+    display: block;
+}
+
+.pic li a img {
+    width: 760px;
+    height: 100%;
+}
+
+.banner .btn {
+    display: none;
+    color: #fff;
+    z-index: 1;
+    align-self: center;
+    position: absolute;
+    transition: all 0.4s linear;
+}
+
+.banner .btn .py-arrow-left, .banner .btn .py-arrow-right {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.banner .prev {
+    left: 25px;
+}
+
+.banner .next {
+    right: 25px;
+}
+
+.banner:hover .btn {
+    display: block;
+    transition: all 0.5s linear;
+}
+
+.banner .tab {
+    width: 140px;
+    height: 12px;
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    margin-left: -30px;
+    display: flex;
+    padding: 0;
+}
+
+.banner .tab li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    margin: 0 6px;
+}
+
+.banner .tab li.active {
+    background: #fff;
+}
+
+/* ====== banner end ======*/

@@ -1,0 +1,179 @@
+body {
+    background-color: #f3f3f3;
+}
+
+li, ul, ol {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-brand {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.main-row {
+    background-color: #FFFFFF;
+    /*height: 1500px;*/
+    height: auto;
+}
+
+.main-contain {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+/* ================= footer start ================= */
+#footer {
+    background: #343a40;
+    text-decoration: none;
+}
+
+#footer .footer-box {
+    text-align: center;
+    color: #c1c1c1;
+}
+
+#footer .footer-box .footer-content {
+    height: 120px;
+    line-height: 30px;
+    padding-top: 25px;
+    padding-left: 60px;
+    box-sizing: border-box;
+    background: url(https://www.python.org/static/img/python-logo.png) no-repeat 50px 20px;
+}
+
+.footer-content .top-content .link {
+    margin-right: 23px;
+}
+
+.footer-box .footer-content .top-content span.about-me .py-wechat {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: -4px;
+}
+
+.footer-box .footer-content .bottom-content span:first-child {
+    margin-right: 20px;
+}
+
+#footer .footer-box .copyright-desc {
+    line-height: 60px;
+    background: rgb(55, 60, 70);
+}
+
+/* ================= footer end ================= */
+
+
+/* ========= side start ============ */
+.main-contain .side a {
+    text-decoration: none;
+}
+
+.main-contain .side {
+    width: 360px;
+    float: right;
+    background: #fff;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* ==== side-course start ==== */
+.side .side-course {
+    border-top: 1px solid #ddd;
+    padding: 0 20px 20px;
+}
+
+.side .side-course .course-title {
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.side .side-course .course-title a {
+    font-size: 14px;
+    float: right;
+    color: skyblue;
+}
+
+.side .side-course .course-entry {
+    display: block;
+    width: 315px;
+    height: 176px;
+}
+
+.side-course .course-entry img {
+    width: 100%;
+}
+
+/* ==== side-course end ==== */
+/* ==== side-search start ==== */
+.side .side-search {
+    height: 100px;
+    padding: 20px 20px;
+    /*box-sizing: border-box;*/
+    /*margin-top: 20px;*/
+    /*border-top: 1px solid #ddd;*/
+}
+
+.side .side-search .activities-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* ==== side-search end ==== */
+/* ==== side-attention start ==== */
+.side .side-attention {
+    height: 261px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.side .side-attention .attention-title {
+    font-size: 18px;
+}
+
+.side-attention .side-attention-address {
+    margin: 10px 15px;
+    float: left;
+    padding: 0;
+}
+
+.side-attention .side-attention-address li {
+    line-height: 66px;
+}
+
+.side-attention-address li i {
+    font-size: 40px;
+    vertical-align: -10px;
+    padding-right: 25px;
+}
+
+.side-attention .side-attention-qr {
+    float: right;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-right: 20px;
+    background: url('/static/img/pageQR.png') no-repeat center/100%;
+}
+
+.side-attention .side-attention-qr p {
+    text-align: center;
+    padding-top: 110px;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+/* ==== side-attention end ==== */
+/* ========= side end ============ */

@@ -5,10 +5,21 @@
 
 {% block title %}{{ topic.subject }}{% endblock %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/Module/newtags.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Module/sideActive.css' %}">
+{% endblock %}
+
 {% block breadcrumb %}
     <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
     <li class="breadcrumb-item"><a href="{% url 'board_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
     <li class="breadcrumb-item active">{{ topic.subject }}</li>
+{% endblock %}
+
+{% block Banner %}
+{% endblock %}
+
+{% block Hotopic %}
 {% endblock %}
 
 {% block content %}
@@ -24,7 +35,7 @@
                     {{ topic.subject }}
                     <span style="float: right">
                     {% for tag in post.topic.tag.all %}
-                        <a href="/search/?tag={{ tag }}" class="badge badge-pill badge-primary">{{ tag }}</a>
+                        <a href="{% url 'search' %}?tag={{ tag }}" class="badge badge-pill badge-primary">{{ tag }}</a>
                     {% endfor %}
                     </span>
                 </div>
@@ -60,4 +71,8 @@
 
     {% include 'includes/pagination.html' %}
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/Module/newtags.js' %}"></script>
 {% endblock %}
