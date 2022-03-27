@@ -22,6 +22,10 @@ class BoardListView(ListView):
     context_object_name = 'boards'
     template_name = 'home.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['home'] = True
+        return super().get_context_data(**kwargs)
+
 
 class HomeTagsView(View):
     def get(self, request):
@@ -82,6 +86,10 @@ class DownloadDocListView(ListView):
     model = DocFile
     template_name = 'download.html'
     context_object_name = 'docs'
+
+    def get_context_data(self, **kwargs):
+        kwargs['search'] = True
+        return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         queryset = DocFile.objects.order_by('-created_at')

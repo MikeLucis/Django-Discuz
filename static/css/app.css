@@ -16,11 +16,12 @@ a {
 
 .main-row {
     background-color: #FFFFFF;
+    height: 1500px;
 }
 
 .main-contain {
     margin-top: 20px;
-    margin-bottom: 400px;
+    margin-bottom: 50px;
 }
 
 /* ====== banner start ======*/
@@ -307,7 +308,8 @@ a {
     width: 100px;
     height: 100px;
     margin-top: 20px;
-    background: url('../../images/wechat2.jpg') no-repeat center/100%;
+    margin-right: 20px;
+    background: url('/static/img/pageQR.png') no-repeat center/100%;
 }
 
 .side-attention .side-attention-qr p {
